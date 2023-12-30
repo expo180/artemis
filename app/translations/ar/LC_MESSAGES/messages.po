@@ -1,0 +1,56 @@
+# Arabic translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-12-30 01:23+0100\n"
+"PO-Revision-Date: 2023-12-30 01:25+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ar\n"
+"Language-Team: ar <LL@li.org>\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: auth/forms.py:11
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: auth/forms.py:22
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: auth/forms.py:29
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: templates/auth/register.html:6 templates/auth/register.html:23
+msgid "Course Registration"
+msgstr "تسجيل الدورة"
+
+#: templates/auth/register.html:31
+msgid "Enter your email"
+msgstr "أدخل بريدك الإلكتروني"
+
+#: templates/auth/register.html:40
+msgid "Enter your first name"
+msgstr "أدخل اسمك الأول"
+
+#: templates/auth/register.html:49
+msgid "Enter your last name"
+msgstr "أدخل اسمك الأخير"
+
+#: templates/auth/register.html:77
+msgid "Enter your phone number"
+msgstr "أدخل رقم هاتفك"
+
+#: templates/auth/register.html:85
+msgid "Submit"
+msgstr "إرسال"
