@@ -1,38 +1,39 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField
 from wtforms.validators import InputRequired, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from ..models import User
 from markupsafe import Markup
-import pycountry
-from flask_babel import _
+
 class CourseWorkRegistrationForm(FlaskForm):
-    email = StringField(
-        _('Email'), 
-        validators = [
-            Length(1, 64),
-            Email()
-        ]
-    )
 
     country_code = SelectField('Code pays', choices=[], coerce=str)
 
-
     first_name = StringField(
-        ("Prenom"),
+        "Prénom",
         validators = [
             InputRequired()
         ]
     )
 
     last_name = StringField(
-        ("Nom de famille"),
+        "Nom de famille",
         validators = [
             InputRequired()
         ]
     )
 
+    email = StringField(
+        'Email', 
+        validators = [
+            Length(1, 64),
+            Email()
+        ]
+    )
+
+
     areas = [
+        ("Aucune", "Sélectionnez la formation"),
         ("Design graphique", "Graphisme"),
         ("Design de mouvement", "Motion Design"),
         ("Design web", "Design web"),
@@ -75,7 +76,7 @@ class CourseWorkRegistrationForm(FlaskForm):
 
 
     phone_number = StringField(
-        _("Entrer votre numero de telephone"), 
+        "Entrer votre numero de téléphone", 
         validators=[
             InputRequired()
         ]
@@ -84,14 +85,30 @@ class CourseWorkRegistrationForm(FlaskForm):
     default_choice = areas[0][0]
 
     areas_of_interest = SelectField(
-        _("Selectionner la formation"),
+        "Sélectionner la formation",
         choices=areas,
         default=default_choice
     )
 
-   
+    payment_method_choices = [
+        ("paypal", "PayPal"),
+        ("credit_card", "Carte de Credit/Carte de Debit"),
+        ("other", "Autre"),
+    ]
+
+    payment_method = SelectField(
+        "Méthode de paiement",
+        choices=payment_method_choices,
+        validators=[InputRequired()]
+    )
 
     privacy_policy_agreement = BooleanField(
-        _("You have read and accepted our <a href=''>Terms and Conditions</a>."),
+        Markup('En continuant, vous acceptez de <strong>verser</strong> les frais d\'inscription correspondant à la <strong>formation</strong> que vous voulez <strong>suivre.</strong>' +
+               ' Vous <strong>acceptez</strong> également notre <a href="#" data-toggle="modal" data-target="#privacyPolicyModal">politique de confidentialité</a>'+"<sup class='text-danger'>*</sup>."),
         validators=[InputRequired()]
+    )
+
+    motivation = TextAreaField(
+        "Dites brièvement pourquoi vous voulez participer à la formation que vous avez choisie",
+        render_kw={'placeholder': 'J\'aimerais apprendre le graphisme pour aider les entreprises à améliorer leur communication'},
     )

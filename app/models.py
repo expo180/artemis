@@ -189,11 +189,9 @@ class Students(UserMixin, db.Model):
     first_name = db.Column(db.String(), nullable=False)
     last_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String())
-    acknowledgements = db.Column(db.Boolean, default=False)
     phone_number = db.Column(db.String(), nullable=False)
     phone_index = db.Column(db.String(), nullable=False)
     motivation = db.Column(db.String())
-    portfolio_url = db.Column(db.String())
     program_title = db.Column(db.String(), nullable=False)
 
 

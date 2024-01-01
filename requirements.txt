@@ -32,6 +32,7 @@ email_validator
 flask-change-password
 httpx
 psycopg2
+gunicorn
 pycountry
 firebase-admin
 Werkzeug==2.2.2

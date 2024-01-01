@@ -4,80 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'inscription</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="description" content="Formulaire d'inscription">
+    <meta name="keywords" content="graphisme, animation, design de produit, illustration, AR/VR design, UI/UX design, game design">
+    <meta name="author" content="artemis academy of design LLC">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='medias/brand/favicons/apple-touch-icon.png')}}" sizes="180x180">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon-32x32.png')}}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons//favicon-16x16.png')}}" sizes="16x16" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon.png')}}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,400&family=Source+Code+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='stylesheets/forms/register.css') }}" rel="stylesheet">
-    <script src="{{ url_for('static', filename='scripts/serverless/forms/register.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/async/forms/register.js') }}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 </head>
 <body>
-
 <div class="container mt-4">
     <h2>Formulaire d'inscription</h2>
     <hr>
     <p class="text-body-secondary">
-        Tous les champs marqués d'un astérix rouge (<span class="text-danger">*</span>) sont obligatoires vous devez le remplir afin de soumettre le formulaire. 
+        Tous les <strong>champs</strong> marqués d'un <strong>astérix rouge</strong> (<span class="text-danger">*</span>) sont <strong>obligatoires</strong>. Vous devez les remplir pour <strong>soumettre</strong> le <strong>formulaire</strong>.
     </p>
     <form method="POST" action="{{ url_for('auth.register') }}">
         {{ form.hidden_tag() }}
 
-        <!-- Email -->
-        <div class="form-group">
-            {{ form.email.label }}
-            {{ form.email(class="form-control", placeholder="Entrer votre email") }}
-            <p class="error-message"></p>
-        </div>
-
         <!-- First Name -->
         <div class="form-group">
             {{ form.first_name.label }}<sup class="text-danger">*</sup>
-            {{ form.first_name(class="form-control", placeholder="Entrer votre prenom") }}
-            <p class="error-message"></p>
+            {{ form.first_name(class="form-control", placeholder="Entrer votre prénom", id="first_name") }}
+            <p class="error-message" id="first_name_error"></p>
         </div>
 
         <!-- Last Name -->
         <div class="form-group">
             {{ form.last_name.label }}<sup class="text-danger">*</sup>
-            {{ form.last_name(class="form-control", placeholder="Entrer votre nom de famille") }}
-            <p class="error-message"></p>
+            {{ form.last_name(class="form-control", placeholder="Entrer votre nom de famille", id="last_name") }}
+            <p class="error-message" id="last_name_error"></p>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", placeholder="exemple@gmail.com", id="email") }}
+            <p class="error-message" id="email_error"></p>
         </div>
 
         <!-- Areas of Interest -->
         <div class="form-group">
             {{ form.areas_of_interest.label }}<sup class="text-danger">*</sup>
-            {{ form.areas_of_interest(class="form-control") }}
-            <p class="error-message"></p>
+            {{ form.areas_of_interest(class="form-select", id="areas_of_interest") }}
+            <p class="error-message" id="areas_of_interest_error"></p>
+            <p class="text-body-secondary">
+                Veuillez sélectionner la formation à laquelle vous voulez participer <strong>maintenant</strong>. Vous pourrez vous inscrire à une <strong>autre</strong> une fois que vous aurez <strong>complété</strong> celle-ci.
+            </p>
         </div>
 
-        <div class="form-row">
-            <!-- Country Code and Phone Number -->
-            <div class="form-group">
-                {{ form.phone_number.label }}<sup class="text-danger">*</sup>
-                <div class="input-group">
-                    <!-- Country Code -->
-                    <div class="input-group-prepend">
-                        {{ form.country_code(class="custom-select", id="phoneCode")}}
+        <!-- Payment Method -->
+        <div class="form-group">
+            {{ form.payment_method.label }}<sup class="text-danger">*</sup>
+            {{ form.payment_method(class="form-select", id="payment_method") }}
+            <p class="error-message" id="payment_method_error"></p>
+            <p class="text-body-secondary">
+                Veuillez sélectionner votre méthode de paiement.
+            </p>
+        </div>
+
+        <div class="form-group">
+            {{ form.motivation.label }}
+            {{ form.motivation(class="form-control", placeholder="J'aimerais apprendre le graphisme pour aider les entreprises à améliorer leur communication", rows=7, id="motivation") }}
+            <p class="text-body-secondary">
+                Max 250 caractères.
+            </p>
+            <p class="error-message" id="motivation_error"></p>
+        </div>
+
+        {{ form.phone_number.label }}<sup class="text-danger">*</sup></label>
+
+        <div class="input-group">
+            <input type="text" class="form-control w-100" id="phoneCode">
+        </div>
+        <p class="error-message" id="phoneCode_error"></p>
+
+        <div class="form-group my-4">
+            <div class="form-check">
+                {{ form.privacy_policy_agreement(class='form-check-input', type='checkbox', id='privacyPolicyAgreement') }}
+                <label class="form-check-label" for="privacyPolicyAgreement">
+                    {{ form.privacy_policy_agreement.label }}
+                </label>
+            </div>
+            <p class="error-message" id="privacyPolicyAgreement_error"></p>
+        </div>
+
+        <!-- Modal de Politique de Confidentialité -->
+        <div class="modal fade" id="privacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="privacyPolicyModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="privacyPolicyModalLabel">Politique de Confidentialité</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <!-- Phone Number -->
-                    {{ form.phone_number(class="form-control", placeholder="Enter your phone number") }}
+                    <div class="modal-body">
+                        <p>
+                            Votre vie <strong>privée</strong> est importante pour nous. Nous collectons certaines <strong>informations personnelles</strong> lors du <strong>processus</strong> d'inscription pour vous offrir une <strong>expérience</strong> éducative en <strong>design</strong> et en <strong>art personnalisée</strong> et de <strong>haute qualité</strong>. Les informations que vous fournissez seront <strong>utilisées</strong> pour <strong>adapter</strong> nos <strong>cours</strong> à vos <strong>besoins</strong> et <strong>préférences</strong>. Après <strong>l'inscription</strong>, nous pouvons vous demander de partager des <strong>détails</strong> sur votre expérience en <strong>design</strong> (non-requise) afin d'évaluer <strong>l'impact</strong> de nos <strong>cours</strong> sur votre <strong>parcours</strong> d'apprentissage.
+                        </p>
+                        <hr>
+                        <p>
+                            Soyez assuré(e), nous nous engageons à protéger votre vie privée et à assurer la <strong>sécurité</strong> de vos <strong>données</strong>. Vos informations ne seront pas <strong>partagées</strong> avec des <strong>tiers</strong> sans votre <strong>consentement</strong>, et nous respectons <strong>strictement</strong> toutes les <strong>lois</strong> et <strong>réglementations pertinentes</strong> en matière de <strong>protection</strong> des <strong>données.</strong>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
                 </div>
-                <p class="error-message"></p>
             </div>
         </div>
-        
+
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary border-0">
+        <button type="submit" class="btn btn-primary border-0 my-3">
             Soumettre
             <i class="bi bi-send"></i>
         </button>
     </form>
+    <div class="py-3"></div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/serverless/forms/register.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
 
@@ -89,7 +148,6 @@
         });
     });
 </script>
-
 
 </body>
 </html>
