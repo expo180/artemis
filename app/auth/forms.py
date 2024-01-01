@@ -72,9 +72,6 @@ class CourseWorkRegistrationForm(FlaskForm):
         ("Marketing d'événements", "Marketing d'événements")
     ]
 
-        
-
-
     phone_number = StringField(
         "Entrer votre numero de téléphone", 
         validators=[
@@ -91,8 +88,8 @@ class CourseWorkRegistrationForm(FlaskForm):
     )
 
     payment_method_choices = [
-        ("paypal", "PayPal"),
-        ("credit_card", "Carte de Credit/Carte de Debit"),
+        ("Paypal", "PayPal"),
+        ("Credit Card", "Carte de Credit/Carte de Debit"),
         ("other", "Autre"),
     ]
 
@@ -104,7 +101,7 @@ class CourseWorkRegistrationForm(FlaskForm):
 
     privacy_policy_agreement = BooleanField(
         Markup('En continuant, vous acceptez de <strong>verser</strong> les frais d\'inscription correspondant à la <strong>formation</strong> que vous voulez <strong>suivre.</strong>' +
-               ' Vous <strong>acceptez</strong> également notre <a href="#" data-toggle="modal" data-target="#privacyPolicyModal">politique de confidentialité</a>'+"<sup class='text-danger'>*</sup>."),
+            ' Vous <strong>acceptez</strong> également notre <a href="#" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">politique de confidentialité</a>'+"<sup class='text-danger'>*</sup>."),
         validators=[InputRequired()]
     )
 
