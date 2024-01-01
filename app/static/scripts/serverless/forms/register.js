@@ -72,7 +72,7 @@ $(document).ready(function() {
         submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
 
         // Perform AJAX request using Fetch API
-        fetch("http://127.0.0.1:5000/inscription/", {
+        fetch("https://bit-t2kb.onrender.com/inscription/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

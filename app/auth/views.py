@@ -10,9 +10,6 @@ from datetime import datetime
 @auth.route("/inscription/", methods=['POST'])
 def enroll():
     form_data = request.get_json()
-
-    print(form_data)
-
     # Validate the incoming data
     if not form_data or not isinstance(form_data, dict):
         return jsonify({'success': False, 'message': 'Invalid data format'})
