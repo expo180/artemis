@@ -23,7 +23,6 @@ def enroll():
         motivation=form_data.get('motivation', ''),
         program_title=form_data.get('areas_of_interest', '') 
     )
-
     # Save the new student to the database
     db.session.add(student)
     db.session.commit()
@@ -34,3 +33,4 @@ def enroll():
 def register():
     form = CourseWorkRegistrationForm()
     return render_template('auth/register.html', form=form)
+

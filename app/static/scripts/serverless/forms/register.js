@@ -23,21 +23,31 @@ $(document).ready(function() {
 
     // Custom validation function for email format
     function validateEmail(email) {
+        let emailInput = $("#email").val();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+        if(emailRegex.test(email)|| emailInput ===''){
+            return true
+        }
+        else{
+            return false
+        }
     }
 
     // Custom validation function for motivation character limit
     function validateMotivation(motivation) {
         const maxLength = 250;
-        return motivation.length <= maxLength;
+        let motivationInput = $('#motivation').val()
+        if(motivation.length <= maxLength || motivationInput ===''){
+            return true
+        } else{
+            return false
+        }
     }
 
     // Event listener for form submission
     $('form').submit(function (event) {
         // Prevent the default form submission
         event.preventDefault();
-
         // Validate each required field
         const firstNameValid = validateField('#first_name', '#first_name_error', value => value.trim() !== '', 'Veuillez entrer votre prénom.');
         const lastNameValid = validateField('#last_name', '#last_name_error', value => value.trim() !== '', 'Veuillez entrer votre nom de famille.');
@@ -46,7 +56,6 @@ $(document).ready(function() {
         const paymentMethodValid = validateField('#payment_method', '#payment_method_error', value => value.trim() !== '', 'Veuillez sélectionner un mode de paiement.');
         const motivationValid = validateField('#motivation', '#motivation_error', validateMotivation, 'La motivation ne doit pas dépasser 250 caractères.');
         const phoneNumberValid = validateField('#phoneCode', '#phoneCode_error', value => value.trim() !== '', 'Veuillez entrer votre numéro de téléphone.');
-
         // If any required field is not valid, do not proceed with the AJAX request and disable the submit button
         if (!firstNameValid || !lastNameValid || !emailValid || !areasOfInterestValid || !paymentMethodValid || !motivationValid || !phoneNumberValid) {
             $('button[type="submit"]').prop('disabled', true);
@@ -72,7 +81,7 @@ $(document).ready(function() {
         submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
 
         // Perform AJAX request using Fetch API
-        fetch("https://bit-t2kb.onrender.com/inscription/", {
+        fetch("/autre/paiement/inscription/", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,34 +90,26 @@ $(document).ready(function() {
         })
             .then(response => response.json())
             .then(data => {
-                // Enable submit button and hide spinner
                 submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
-
-                // Display success message using SweetAlert
                 Swal.fire({
                     icon: 'success',
-                    title: 'Success!',
-                    text: 'Votre formulaire a été envoyé avec succès',
+                    title: 'Envoi réussi!',
+                    text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les frais d\'inscription en utilisant votre carte de crédit, paypal ou un autre moyen.',
                     showCancelButton: true,
                     confirmButtonText: 'Continue',
                     cancelButtonText: 'Cancel',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Redirect user based on payment method (example: PayPal or Credit Card)
-                        if (formData.payment_method === 'PayPal') {
-                            window.location.href = 'https://www.paypal.com'; // Replace with actual PayPal URL
-                        } else if (formData.payment_method === 'Credit Card') {
-                            window.location.href = 'https://www.creditcardpayment.com'; // Replace with actual Credit Card URL
+                        if (formData.payment_method === 'PayPal' || formData.payment_method =='Credit Card') {
+                            window.location.href = 'http://127.0.0.1:5000/paiement/formation/';
+                        } else{
+                            window.location.href = 'http://127.0.0.1:5000/autre/paiement/';
                         }
-                        // Add more conditions for other payment methods or actions
                     }
                 });
             })
             .catch(error => {
-                // Enable submit button and hide spinner
                 submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
-
-                // Display error message using SweetAlert
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -116,8 +117,6 @@ $(document).ready(function() {
                 });
             });
     });
-
-    // Event listeners for real-time validation on input change
     $('#first_name, #last_name, #email, #areas_of_interest, #payment_method, #motivation, #phoneCode').on('input', function () {
         validateField('#' + this.id, '#' + this.id + '_error', this.id === 'email' ? validateEmail : (this.id === 'motivation' ? validateMotivation : value => value.trim() !== ''));
     });

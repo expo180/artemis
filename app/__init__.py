@@ -17,9 +17,9 @@ db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
 
-def create_app(production=True):
+def create_app(development=True):
     app = Flask(__name__)
-    app.config.from_object(config['production'])
+    app.config.from_object(config['development'])
     app.config['LANGUAGES'] = ['en', 'fr', 'ja', 'ar', 'it', 'es', 'pt', 'ru', 'pl']
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     config['production'].init_app(app)
@@ -37,6 +37,9 @@ def create_app(production=True):
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    from .apis import api as api_blueprint
+    app.register_blueprint(api_blueprint)
 
     with app.app_context():
         # Create database tables and insert roles
