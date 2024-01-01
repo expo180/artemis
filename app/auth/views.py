@@ -5,7 +5,6 @@ from .. import db
 from ..models import User, Students
 from werkzeug.security import generate_password_hash
 from .forms import CourseWorkRegistrationForm
-from .. import rapi 
 from datetime import datetime
 
 @auth.route("/inscription/", methods=['POST'])
@@ -24,7 +23,6 @@ def enroll():
         last_name=form_data.get('last_name', ''),
         email=form_data.get('email', ''),
         phone_number=form_data.get('phone_number', ''),
-        phone_index=form_data.get('phoneCode',''),
         motivation=form_data.get('motivation', ''),
         program_title=form_data.get('areas_of_interest', '') 
     )

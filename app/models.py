@@ -190,7 +190,6 @@ class Students(UserMixin, db.Model):
     last_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String())
     phone_number = db.Column(db.String(), nullable=False)
-    phone_index = db.Column(db.String(), nullable=False)
     motivation = db.Column(db.String())
     program_title = db.Column(db.String(), nullable=False)
 

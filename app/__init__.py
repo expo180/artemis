@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 from conf import config
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
-from flask_restcountries import CountriesAPI
 from flask_migrate import Migrate
 from flask_babel import Babel, gettext
 
@@ -16,7 +15,6 @@ mail = Mail()
 babel = Babel()
 db = SQLAlchemy()
 moment = Moment()
-rapi = CountriesAPI()
 migrate = Migrate()
 
 def create_app(development=True):
@@ -31,7 +29,6 @@ def create_app(development=True):
     migrate.init_app(app, db)
     moment.init_app(app)
     login_manager.init_app(app)
-    rapi.init_app(app)
     babel.init_app(app)
 
     # Register blueprints

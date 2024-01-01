@@ -63,7 +63,7 @@ $(document).ready(function() {
             areas_of_interest: $('#areas_of_interest').val(),
             payment_method: $('#payment_method').val(),
             motivation: $('#motivation').val(),
-            phone_number: $('#phoneCode').val(),
+            phone_number: $('#hiddenCountryCode').val() + $('#phoneCode').val(),
             privacy_policy_agreement: $('#privacyPolicyAgreement').prop('checked')
         };
 
