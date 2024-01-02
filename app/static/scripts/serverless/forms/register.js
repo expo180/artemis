@@ -101,6 +101,10 @@ $('form').submit(function (event) {
         .then(response => response.json())
         .then(data => {
             submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
+
+            // Store user information in local storage
+            localStorage.setItem('user_info', JSON.stringify(formData));
+
             Swal.fire({
                 icon: 'success',
                 title: 'Envoi réussi!',
@@ -111,9 +115,9 @@ $('form').submit(function (event) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (formData.payment_method === 'Paypal') {
-                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/formation/';
+                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/paypal&creditcard/formation/';
                     } else if(formData.payment_method === 'Credit Card'){
-                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/formation/';
+                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/paypal&creditcard/formation/';
                     } else{
                         window.location.href = 'https://bit-t2kb.onrender.com/autre/paiement/';
                     }

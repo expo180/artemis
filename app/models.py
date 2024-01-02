@@ -192,6 +192,7 @@ class Students(UserMixin, db.Model):
     phone_number = db.Column(db.String(), nullable=False)
     motivation = db.Column(db.String())
     program_title = db.Column(db.String(), nullable=False)
+    status = db.Column(db.Boolean, default=False)
 
 
 class User(UserMixin, db.Model):
