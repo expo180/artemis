@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    font-family:'Poppins', sans-serif;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+.blue-underline{
+    text-decoration:underline;
+    text-decoration-color:blue;
+}
+h1{
+    font-weight:600;
+}
+.pattern{
+    background-image:url('pattern-2.png');
+    padding:8em 3em;
+}

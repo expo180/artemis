@@ -25,10 +25,7 @@ $(document).ready(function() {
     function validateEmail(email) {
         let emailInput = $("#email").val();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(emailInput ===''){
-            return true
-        }
-        else if(emailRegex.test(email)){
+        if(emailRegex.test(email)|| emailInput ===''){
             return true
         }
         else{
@@ -107,7 +104,7 @@ $('form').submit(function (event) {
             Swal.fire({
                 icon: 'success',
                 title: 'Envoi réussi!',
-                text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les frais d\'inscription en utilisant votre carte de crédit, paypal ou un autre moyen.',
+                text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les <strong>frais d\'inscription</strong> en utilisant votre <strong>carte de crédit</strong>, <strong>Paypal</strong> ou un autre moyen.',
                 showCancelButton: true,
                 confirmButtonText: 'Continue',
                 cancelButtonText: 'Cancel',

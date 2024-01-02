@@ -10,7 +10,6 @@ from datetime import datetime
 @auth.route("/inscription/", methods=['POST'])
 def enroll():
     form_data = request.get_json()
-    print(form_data)
     # Validate the incoming data
     if not form_data or not isinstance(form_data, dict):
         return jsonify({'success': False, 'message': 'Invalid data format'})
@@ -34,4 +33,9 @@ def enroll():
 def register():
     form = CourseWorkRegistrationForm()
     return render_template('auth/register.html', form=form)
+
+@auth.route("/paiement/success/", methods=['GET', 'POST'])
+def pay_success():
+    return render_template('apis/payment_success.html')
+
 

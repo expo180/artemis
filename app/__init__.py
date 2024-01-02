@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_babel import Babel, gettext
 
+
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 bootstrap = Bootstrap()
@@ -17,9 +18,11 @@ db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
 
-def create_app(development=True):
+
+
+def create_app(production=True):
     app = Flask(__name__)
-    app.config.from_object(config['development'])
+    app.config.from_object(config['production'])
     app.config['LANGUAGES'] = ['en', 'fr', 'ja', 'ar', 'it', 'es', 'pt', 'ru', 'pl']
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     config['production'].init_app(app)
