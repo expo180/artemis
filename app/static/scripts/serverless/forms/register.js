@@ -91,7 +91,7 @@ $('form').submit(function (event) {
     submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
 
     // Perform AJAX request using Fetch API
-    fetch("http://127.0.0.1:5000/inscription/", {
+    fetch("https://bit-t2kb.onrender.com/inscription/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -107,15 +107,15 @@ $('form').submit(function (event) {
                 text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les <strong>frais d\'inscription</strong> en utilisant votre <strong>carte de crédit</strong>, <strong>Paypal</strong> ou un autre moyen.',
                 showCancelButton: true,
                 confirmButtonText: 'Continue',
-                cancelButtonText: 'Cancel',
+                cancelButtonText: 'Retour',
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (formData.payment_method === 'Paypal') {
-                        window.location.href = 'http://127.0.0.1:5000/paiement/formation/';
+                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/formation/';
                     } else if(formData.payment_method === 'Credit Card'){
-                        window.location.href = 'http://127.0.0.1:5000/paiement/formation/';
+                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/formation/';
                     } else{
-                        window.location.href = 'http://127.0.0.1:5000/autre/paiement/';
+                        window.location.href = 'https://bit-t2kb.onrender.com/autre/paiement/';
                     }
                 }
             });

@@ -16,7 +16,7 @@
   <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons//favicon-16x16.png')}}" sizes="16x16" type="image/png">
   <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon.png')}}" type="image/png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-  <script src="https://www.paypal.com/sdk/js?client-id=ATiGpiVq8LrQ7YqToHqQMdfpflyeUc5wQwOD4LfVtRKQGjbyeUIsMzmkVREFOS0G4Gwh9koYR3yYfpnS&currency=EUR"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=ATiGpiVq8LrQ7YqToHqQMdfpflyeUc5wQwOD4LfVtRKQGjbyeUIsMzmkVREFOS0G4Gwh9koYR3yYfpnS&currency=USD"></script>
   <title>Effectuer votre paiement</title>
 </head>
 <body>
@@ -52,7 +52,7 @@
               onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                   console.log('Transaction completed by ' + details.payer.name.given_name);
-                  window.location.href = "http://127.0.0.1:5000/paiement/success/"
+                  window.location.href = "https://bit-t2kb.onrender.com/paiement/success/"
                 });
               }
             }).render('#paypal-button-container');
@@ -91,17 +91,18 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-primary">Guide d'utilisation</h5>
+          <h5 class="modal-title text-primary">Etape Finale</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Bienvenue! Voici un guide rapide pour utiliser notre service:</p>
+          <p>Bienvenue! Voici un guide rapide pour compléter votre inscription:</p>
           <ol>
             <li>Cliquez sur le bouton <strong class="blue-underline">"Payer avec PayPal"</strong> pour utiliser votre compte <strong class="blue-underline">PayPal.</strong></li>
             <li>Ou, cliquez sur le bouton <strong class="blue-underline">"Payer par carte de crédit"</strong> pour effectuer le paiement avec votre <strong class="blue-underline">carte.</strong></li>
-            <li><strong class="blue-underline">Remplissez</strong> les informations nécessaires et <strong class="blue-underline">finalisez</strong> votre <strong class="blue-underline">inscription.😊</strong></li>
+            <li><strong class="blue-underline">Remplissez</strong> les informations nécessaires et <strong class="blue-underline">finalisez</strong> votre <strong class="blue-underline">inscription.</strong></li>
+            <li><strong class="blue-underline">Si vous avez des <strong class="blue-underline">questions</strong> ou si vous rencontrez des <strong class="blue-underline">difficultés</strong> à remplir le formulaire, veuillez nous contacter à cette  <a href="mailto:bytesprintrobotics@gmail.com">adresse email</a> et ou contacter nous au <a href="#">+227</a></li>
           </ol>
         </div>
         <div class="modal-footer">
