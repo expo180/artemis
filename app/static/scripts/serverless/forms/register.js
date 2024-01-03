@@ -24,7 +24,16 @@ $(document).ready(function () {
     // Custom validation function for email format
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email) || email === '';
+        if(!email && !emailRegex.test(email)){
+            return false
+        }
+        else if(!email || !emailRegex.test(email)){
+            return false
+        }
+        else{
+            return true
+        }
+
     }
 
     function validateAreasOfInterest(areasOfInterest) {
@@ -88,8 +97,6 @@ $(document).ready(function () {
             // Disable submit button and show spinner
             const submitButton = $('button[type="submit"]');
             submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
-
-            // Perform AJAX request using Fetch API
             fetch("https://bit-t2kb.onrender.com/inscription/", {
                 method: 'POST',
                 headers: {
@@ -100,28 +107,6 @@ $(document).ready(function () {
                 .then(response => response.json())
                 .then(data => {
                     submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
-
-                    // Store user information in local storage
-                    localStorage.setItem('user_info', JSON.stringify(formData));
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Envoi réussi!',
-                        text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les frais d\'inscription en utilisant votre carte de crédit, Paypal ou un autre moyen.',
-                        showCancelButton: true,
-                        confirmButtonText: 'Continue',
-                        cancelButtonText: 'Retour',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            if (formData.payment_method === 'Paypal') {
-                                window.location.href = 'https://ekki.onrender.com';
-                            } else if (formData.payment_method === 'Credit Card') {
-                                window.location.href = 'https://ekki.onrender.com';
-                            } else {
-                                window.location.href = 'http://127.0.0.1:5000/autre/paiement/';
-                            }
-                        }
-                    });
                 })
                 .catch(error => {
                     submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
@@ -132,7 +117,7 @@ $(document).ready(function () {
                     });
                 });
         } else {
-            // Show an error message or handle invalid form submission as needed
+            console.log(error)
         }
     });
 });

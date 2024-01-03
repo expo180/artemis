@@ -193,6 +193,7 @@ class Students(UserMixin, db.Model):
     motivation = db.Column(db.String())
     program_title = db.Column(db.String(), nullable=False)
     status = db.Column(db.Boolean, default=False)
+    member_since = db.Column(db.DateTime, default=datetime.utcnow)
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
