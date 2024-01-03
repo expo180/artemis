@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask
 from flask_mail import Mail
 from flask_moment import Moment
@@ -6,8 +7,7 @@ from conf import config
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from flask_babel import Babel, gettext
-
+from flask_babel import Babel
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
@@ -17,8 +17,7 @@ babel = Babel()
 db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
-
-
+cors = CORS()
 
 def create_app(production=True):
     app = Flask(__name__)
@@ -33,6 +32,7 @@ def create_app(production=True):
     moment.init_app(app)
     login_manager.init_app(app)
     babel.init_app(app)
+    cors.init_app(app)  # Integrate Flask-CORS
 
     # Register blueprints
     from .auth import auth as auth_blueprint

@@ -96,7 +96,7 @@ $(document).ready(function () {
 
             // Disable submit button and show spinner
             const submitButton = $('button[type="submit"]');
-            submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Envoi...');
+            submitButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Patientez...');
             fetch("https://bit-t2kb.onrender.com/inscription/", {
                 method: 'POST',
                 headers: {
