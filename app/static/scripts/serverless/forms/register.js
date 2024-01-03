@@ -24,9 +24,17 @@ $(document).ready(function () {
     // Custom validation function for email format
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email) || email === '';
-    }
+        if(!email && !emailRegex.test(email)){
+            return false
+        }
+        else if(!email || !emailRegex.test(email)){
+            return false
+        }
+        else{
+            return true
+        }
 
+    }
 
     function validateAreasOfInterest(areasOfInterest) {
         return areasOfInterest.trim() !== '';
