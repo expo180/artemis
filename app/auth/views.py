@@ -25,7 +25,7 @@ def enroll():
     # Check for duplicate email
     existing_student = Students.query.filter_by(email=form_data.get('email', '')).first()
     if existing_student:
-        flash('An account with this email address already exists.', 'danger')
+        flash('Vous vous êtes déja incrit à cette formation!', 'error')
         return jsonify({'success': False, 'message': 'Duplicate email address'})
 
     # Create a new instance of the Students model and populate it with form data
@@ -51,7 +51,7 @@ def enroll():
     except IntegrityError:
         # Handle unique constraint violation (duplicate email)
         db.session.rollback()
-        flash('An account with this email address already exists.', 'danger')
+        flash('Vous vous êtes déja incrit à cette formation!', 'error')
         return jsonify({'success': False, 'message': 'Duplicate email address'})
 
 

@@ -158,14 +158,18 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <small class="alert {{ category }} warning">
+                        {% if category == 'success' %}
+                            <i class="bi bi-check-circle"></i>
+                        {% elif category == 'error' %}
+                            <i class="bi bi-exclamation-circle"></i>
+                        {% endif %}
                         {{ message }}
-                    </div>
+                    </small>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
     </form>
     <div class="py-3"></div>
 </div>

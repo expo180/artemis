@@ -23,3 +23,6 @@ strong{
 .custom-select-prepend {
     line-height: 1.5;
 }
+.alert.error {
+    color:rgb(255, 100, 100);
+}
