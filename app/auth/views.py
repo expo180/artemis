@@ -45,7 +45,7 @@ def enroll():
         db.session.commit()
         token = generate_unique_token_for_student(student.id)
         email = form_data.get('email', '')
-        redirect_url = f"https:https://ekki.onrender.com?email={urllib.parse.quote(email)}&token={token}"
+        redirect_url = f"https://ekki.onrender.com?email={urllib.parse.quote(email)}&token={token}"
         return redirect(redirect_url)
     
     except IntegrityError:
