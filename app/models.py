@@ -194,7 +194,6 @@ class Students(UserMixin, db.Model):
     program_title = db.Column(db.String(), nullable=False)
     status = db.Column(db.Boolean, default=False)
 
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

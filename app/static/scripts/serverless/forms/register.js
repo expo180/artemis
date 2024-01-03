@@ -108,18 +108,18 @@ $('form').submit(function (event) {
             Swal.fire({
                 icon: 'success',
                 title: 'Envoi réussi!',
-                text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les <strong>frais d\'inscription</strong> en utilisant votre <strong>carte de crédit</strong>, <strong>Paypal</strong> ou un autre moyen.',
+                text: 'Votre formulaire a été envoyé avec succès. Vous pouvez maintenant continuer en versant les frais d\'inscription en utilisant votre carte de crédit, Paypal ou un autre moyen.',
                 showCancelButton: true,
                 confirmButtonText: 'Continue',
                 cancelButtonText: 'Retour',
             }).then((result) => {
                 if (result.isConfirmed) {
                     if (formData.payment_method === 'Paypal') {
-                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/paypal&creditcard/formation/';
+                        window.location.href = 'https://ekki.onrender.com';
                     } else if(formData.payment_method === 'Credit Card'){
-                        window.location.href = 'https://bit-t2kb.onrender.com/paiement/paypal&creditcard/formation/';
+                        window.location.href = 'https://ekki.onrender.com';
                     } else{
-                        window.location.href = 'https://bit-t2kb.onrender.com/autre/paiement/';
+                        window.location.href = 'http://127.0.0.1:5000/autre/paiement/';
                     }
                 }
             });

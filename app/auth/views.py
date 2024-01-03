@@ -34,8 +34,3 @@ def register():
     form = CourseWorkRegistrationForm()
     return render_template('auth/register.html', form=form)
 
-@auth.route("/paiement/success/", methods=['GET', 'POST'])
-def pay_success():
-    return render_template('apis/payment_success.html')
-
-
