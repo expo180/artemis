@@ -51,11 +51,7 @@
             {{ form.email(class="form-control", placeholder="exemple@gmail.com", id="email") }}
             <p class="error-message" id="email_error"></p>
         </div>
-
-        {% for message in get_flashed_messages() %}
-            <div class="text-danger my-2">{{ message }}</div>
-        {% endfor %}
-
+        
         <!-- Areas of Interest -->
         <div class="form-group">
             {{ form.areas_of_interest.label }}<sup class="text-danger">*</sup>
