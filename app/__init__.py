@@ -17,11 +17,11 @@ babel = Babel()
 db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
-cors = CORS()
 
 def create_app(production=True):
     app = Flask(__name__)
     app.config.from_object(config['production'])
+    CORS(app, resources={r"/*": {"origins": "https://ekki.onrender.com"}})
     app.config['LANGUAGES'] = ['en', 'fr', 'ja', 'ar', 'it', 'es', 'pt', 'ru', 'pl']
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     config['production'].init_app(app)
@@ -32,7 +32,6 @@ def create_app(production=True):
     moment.init_app(app)
     login_manager.init_app(app)
     babel.init_app(app)
-    cors.init_app(app)  # Integrate Flask-CORS
 
     # Register blueprints
     from .auth import auth as auth_blueprint
