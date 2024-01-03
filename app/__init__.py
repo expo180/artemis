@@ -17,7 +17,6 @@ babel = Babel()
 db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
-cors = CORS()
 
 def create_app(production=True):
     app = Flask(__name__)
@@ -32,7 +31,7 @@ def create_app(production=True):
     moment.init_app(app)
     login_manager.init_app(app)
     babel.init_app(app)
-    cors.init_app(app)
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     # Register blueprints
     from .auth import auth as auth_blueprint
