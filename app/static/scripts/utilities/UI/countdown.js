@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Set the date to January 15, 2024
-    const countdownDate = new Date('January 15, 2024 00:00:00').getTime();
+    // Set the date to January 18, 2024
+    const countdownDate = new Date('January 18, 2024 00:00:00').getTime();
   
     // Update the countdown every 1 second
     const countdownInterval = setInterval(function () {

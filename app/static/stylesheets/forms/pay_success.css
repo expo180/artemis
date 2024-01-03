@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-image:url('../background-cta.png');
+  background-image:url('background-cta.png');
 }
 
 .container {
@@ -34,7 +34,7 @@ body {
   padding: 15px;
   border: 2px solid transparent;
   border-radius: 10px;
-  background:url('../background-cta.png');
+  background:url('background-cta.png');
   color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
