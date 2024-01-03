@@ -25,7 +25,7 @@ def enroll():
     # Check for duplicate email
     existing_student = Students.query.filter_by(email=form_data.get('email', '')).first()
     if existing_student:
-        flash('Vous vous êtes déja incrit à cette formation!')
+        flash('Vous vous êtes déja incris à cette formation')
         return jsonify({'success': False, 'message': 'Duplicate email address'})
 
     # Create a new instance of the Students model and populate it with form data
