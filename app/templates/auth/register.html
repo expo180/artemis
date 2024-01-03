@@ -52,6 +52,15 @@
             <p class="error-message" id="email_error"></p>
         </div>
 
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>Error:</strong> {{ messages }}
+            </div>
+          {% endif %}
+        {% endwith %}
+
         <!-- Areas of Interest -->
         <div class="form-group">
             {{ form.areas_of_interest.label }}<sup class="text-danger">*</sup>
@@ -154,21 +163,6 @@
             Soumettre
             <i class="bi bi-send"></i>
         </button>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <small class="alert {{ category }} warning">
-                        {% if category == 'success' %}
-                            <i class="bi bi-check-circle"></i>
-                        {% elif category == 'error' %}
-                            <i class="bi bi-exclamation-circle"></i>
-                        {% endif %}
-                        {{ message }}
-                    </small>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
     </form>
     <div class="py-3"></div>
