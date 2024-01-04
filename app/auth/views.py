@@ -23,8 +23,10 @@ def enroll():
         phone_number=form_data.get('phone_number', ''),
         motivation=form_data.get('motivation', ''),
         program_title=form_data.get('areas_of_interest', ''),
+        confirm_email=form.data.get('confirmEmail', ''),
         member_since=datetime.utcnow()
     )
+    
     # Save the new student to the database
     db.session.add(student)
     db.session.commit()

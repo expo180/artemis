@@ -188,11 +188,13 @@ class Students(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(), nullable=False)
     last_name = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String())
+    email = db.Column(db.String(), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
     motivation = db.Column(db.String())
     program_title = db.Column(db.String(), nullable=False)
     status = db.Column(db.Boolean, default=False)
+    payment_email = db.Column(db.String())
+    confirm_email = db.Column(db.Boolean, default=False)
     member_since = db.Column(db.DateTime, default=datetime.utcnow)
 
 class User(UserMixin, db.Model):

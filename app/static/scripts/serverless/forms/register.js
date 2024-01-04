@@ -91,7 +91,8 @@ $(document).ready(function () {
                 payment_method: $('#payment_method').val(),
                 motivation: $('#motivation').val(),
                 phone_number: $('#hiddenCountryCode').val() + $('#phoneCode').val(),
-                privacy_policy_agreement: $('#privacyPolicyAgreement').prop('checked')
+                privacy_policy_agreement: $('#privacyPolicyAgreement').prop('checked'),
+                confirmEmail: $('#confirmEmail').prop('checked')
             }
 
             // Disable submit button and show spinner
@@ -116,15 +117,22 @@ $(document).ready(function () {
                         cancelButtonText: 'Retour',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            if (formData.payment_method === 'Paypal') {
-                                window.location.href = 'https://ekki.onrender.com';
-                            } else if (formData.payment_method === 'Credit Card') {
-                                window.location.href = 'https://ekki.onrender.com';
+                            let redirectUrl;
+                            let userEmail;
+                            if ($('#confirmEmail').prop('checked')) {
+                                userEmail = formData.email;
                             } else {
-                                window.location.href = 'http://127.0.0.1:5000/autre/paiement/';
+                                userEmail = '';
                             }
+                            if (formData.payment_method === 'Paypal' || formData.payment_method === 'Credit Card') {
+                                redirectUrl = `https://ekki.onrender.com?email=${encodeURIComponent(userEmail)}`;
+                            } else {
+                                redirectUrl = `http://127.0.0.1:5000/autre/paiement/?email=${encodeURIComponent(userEmail)}`;
+                            }
+                            window.location.href = redirectUrl;
                         }
                     });
+
                 })
                 .catch(error => {
                     submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
