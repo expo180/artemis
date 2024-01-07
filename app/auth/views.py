@@ -114,7 +114,6 @@ def register_ambassador_interest():
                     code=six_digit_code,
                     member_since=datetime.utcnow()
                 )
-                print(full_name, email, esperance, institution, impact, phone_number, six_digit_code, hidden_country_code)
                 db.session.add(ambassador)
                 db.session.commit()
 
