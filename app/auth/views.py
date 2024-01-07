@@ -99,6 +99,7 @@ def register_ambassador_interest():
             hidden_country_code = data.get('hiddenCountryCode')
             phone_code = data.get('phoneCode')
 
+            # Combine country code and phone code to form the complete phone number
             phone_number = hidden_country_code + phone_code if hidden_country_code and phone_code else None
 
             six_digit_code = data.get('six_digit_code')
@@ -124,3 +125,4 @@ def register_ambassador_interest():
             return jsonify({'success': False, 'message': f'Error: {str(e)}'})
 
     return render_template('employees/publishers.html')
+
