@@ -90,7 +90,7 @@ def admin_signup():
 def register_ambassador_interest():
     if request.method == 'POST':
         try:
-            data = request.json  # Use request.json directly to get JSON data
+            data = request.get_json(force=True)
             full_name = data.get('full_name')
             email = data.get('email')
             esperance = data.get('earning_range')
@@ -98,23 +98,28 @@ def register_ambassador_interest():
             impact = data.get('bring_people_count')
             hidden_country_code = data.get('hiddenCountryCode')
             phone_code = data.get('phoneCode')
+
+            phone_number = hidden_country_code + phone_code if hidden_country_code and phone_code else None
+
             six_digit_code = data.get('six_digit_code')
 
-            ambassador = Ambassadors(
-                full_name=full_name,
-                email=email,
-                esperance=esperance,
-                institution=institution,
-                impact=impact,
-                phone_number=phone_code+hidden_country_code,
-                code=six_digit_code,
-                member_since=datetime.utcnow()
-            )
-            db.session.add(ambassador)
-            db.session.commit()
+            if six_digit_code:
+                ambassador = Ambassadors(
+                    full_name=full_name,
+                    email=email,
+                    esperance=esperance,
+                    institution=institution,
+                    impact=impact,
+                    phone_number=phone_number,
+                    code=six_digit_code,
+                    member_since=datetime.utcnow()
+                )
+                db.session.add(ambassador)
+                db.session.commit()
 
-            return jsonify({'success': True, 'message': 'Ambassador registration successful'})
-
+                return jsonify({'success': True, 'message': 'Ambassador registration successful'})
+            else:
+                return jsonify({'success': False, 'message': 'Six-digit code is required'})
         except Exception as e:
             return jsonify({'success': False, 'message': f'Error: {str(e)}'})
 

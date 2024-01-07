@@ -183,8 +183,6 @@
             const iti = window.intlTelInput(input, {
                 utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
             });
-    
-            // Listen for input changes and update the hidden input field with the selected country code
             input.addEventListener("countrychange", function() {
                 const countryCode = iti.getSelectedCountryData().iso2;
                 $("#hiddenCountryCode").val("+" + iti.getSelectedCountryData().dialCode);
