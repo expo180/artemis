@@ -91,22 +91,19 @@ def register_ambassador_interest():
     if request.method == 'POST':
         try:
             data = request.get_json('formData')
-
-            full_name = data.get('full_name', '')
-            email = data.get('email', '')
-            esperance = data.get('earning_range', '')
-            institution = data.get('college_name', '')
-            impact = data.get('bring_people_count', '')
-
-            hidden_country_code = data.get('hiddenCountryCode', '')
-            phone_code = data.get('phoneCode', '')
-
+            full_name = data.get('full_name')
+            email = data.get('email')
+            esperance = data.get('earning_range')
+            institution = data.get('college_name')
+            impact = data.get('bring_people_count')
+            hidden_country_code = data.get('hiddenCountryCode')
+            phone_code = data.get('phoneCode')
             if hidden_country_code is not None and phone_code is not None:
                 phone_number = hidden_country_code + phone_code
             else:
                 phone_number = None
 
-            six_digit_code = data.get('six_digit_code', '')
+            six_digit_code = data.get('six_digit_code')
 
             if six_digit_code is not None:
                 ambassador = Ambassadors(
