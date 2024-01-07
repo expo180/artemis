@@ -28,7 +28,7 @@
     <p class="text-body-secondary">
         Tous les <strong>champs</strong> marqués d'un <strong>astérix rouge</strong> (<span class="text-danger">*</span>) sont <strong>obligatoires</strong>. Vous devez les remplir pour <strong>soumettre</strong> le <strong>formulaire</strong>.
     </p>
-    <form method="POST" action="{{ url_for('auth.register') }}">
+    <form method="POST" action="{{ url_for('auth.enroll') }}">
         {{ form.hidden_tag() }}
 
         <!-- First Name -->
@@ -87,6 +87,17 @@
             <p class="error-message" id="motivation_error"></p>
         </div>
 
+        <div class="form-group my-2">
+            <label for="six_digit_code">Code de participation<sup class="text-danger">*</sup></label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="six_digit_code" placeholder="XXXXXX" minlength="6" maxlength="6" required>
+            </div>
+            <p class="error-message" id="six_digit_code_error"></p>
+            <small class="form-text text-muted">
+                Entrez le code de participation provenant de là où vous avez vu notre annonce.
+            </small>
+        </div>
+
         {{ form.phone_number.label }}<sup class="text-danger">*</sup></label>
 
         <input type="hidden" id="hiddenCountryCode" name="country_code" value="">
@@ -94,6 +105,7 @@
             <input type="tel" class="form-control w-100" id="phoneCode">
         </div>
         <p class="error-message" id="phoneCode_error"></p>
+
 
         <div class="form-group my-4">
             <div class="form-check">
@@ -131,28 +143,28 @@
 
         <div class="modal" id="overviewModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title text-primary">Première Etape</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                  </button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary">Première Etape</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bienvenue! Voici un guide rapide pour vous aider à remplir le formulaire</p>
+                        <ol>
+                            <li>Tous les <strong>champs</strong> marqués d'un astérix rouge sont <strong>obligatoires</strong></li>
+                            <li>Pour plus d'infos sur les <strong>méthodes de paiement</strong>, visiter <a href="{{ url_for('api.other_payment_options') }}">cette page</a>.</li>
+                            <li>Si vous avez des <strong class="blue-underline">questions</strong> ou si vous rencontrez des <strong class="blue-underline">difficultés</strong> lors du remplissage, veuillez nous contacter à cette  <a href="mailto:bytesprintrobotics@gmail.com">adresse email</a> et ou contacter nous au <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">+227 74411794</span></li>.
+                            <li>Passez une excellente journée! 😊</li>
+                        </ol>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuer</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Bienvenue! Voici un guide rapide pour vous aider à remplir le formulaire</p>
-                    <ol>
-                        <li>Tous les <strong>champs</strong> marqués d'un astérix rouge sont <strong>obligatoires</strong></li>
-                        <li>Pour plus d'infos sur les <strong>méthodes de paiement</strong>, visiter <a href="{{ url_for('api.other_payment_options') }}">cette page</a>.</li>
-                        <li>Si vous avez des <strong class="blue-underline">questions</strong> ou si vous rencontrez des <strong class="blue-underline">difficultés</strong> lors du remplissage, veuillez nous contacter à cette  <a href="mailto:bytesprintrobotics@gmail.com">adresse email</a> et ou contacter nous au <a href="#">+227 74411794</a></li>.
-                        <li>Passez une excellente journée! 😊</li>
-                    </ol>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continuer</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
         
 
         <!-- Submit Button -->
@@ -176,7 +188,6 @@
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
-
 <script>
     $(document).ready(function() {
         const input = document.querySelector("#phoneCode");

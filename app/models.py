@@ -182,12 +182,44 @@ class Role(db.Model):
 
 db.Table('roles', db.Model.metadata, extend_existing=True)
 
+class OtherPaymentMehtodSubscribers(db.Model):
+    __tablename__ = 'other_payment_subscribers'
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String())
+    phone = db.Column(db.String())
+
+class UserSignature(db.Model):
+    __tablename__ = 'user_signatures'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, unique=True, nullable=False)
+    signature = db.Column(db.String(), nullable=False)
+
+    def __init__(self, user_id, signature):
+        self.user_id = user_id
+        self.signature = signature
+
+
+class Ambassadors(db.Model):
+    __tablename__ = 'ambassadors'
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(), nullable=False)
+    full_name = db.Column(db.String())
+    email = db.Column(db.String())
+    esperance = db.Column(db.String())
+    institution = db.Column(db.String())
+    impact = db.Column(db.String())
+    phone_number = db.Column(db.String())
+    member_since = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 # Defines the table for our first graphic design classes
 class Students(UserMixin, db.Model):
     __tablename__ = 'graphic_design_students'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(), nullable=False)
     last_name = db.Column(db.String(), nullable=False)
+    payment_method = db.Column(db.String())
     email = db.Column(db.String(), nullable=False)
     phone_number = db.Column(db.String(), nullable=False)
     motivation = db.Column(db.String())
@@ -196,13 +228,14 @@ class Students(UserMixin, db.Model):
     payment_email = db.Column(db.String())
     confirm_email = db.Column(db.Boolean, default=False)
     member_since = db.Column(db.DateTime, default=datetime.utcnow)
+    participation_code = db.Column(db.String(), nullable=False)
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, nullable=False)
-    first_name = db.Column(db.String(64), nullable=False)
-    last_name = db.Column(db.String(128), nullable=False)
+    first_name = db.Column(db.String(64))
+    last_name = db.Column(db.String(128))
     password_hash = db.Column(db.String(128), nullable=False)
     age = db.Column(db.String)
     name = db.Column(db.String(64))
@@ -257,26 +290,6 @@ class User(UserMixin, db.Model):
         super(User, self).__init__(**kwargs)
         if self.email == current_app.config['BYTESPRINT_ADMIN']:
             self.role = Role.query.filter_by(name='Administrator').first()
-            print(f"User email: {self.email}")
-            print(f"TECHNICAL_WRITER config value: {current_app.config['TECHNICAL_WRITER']}")
-
-
-        elif self.email == current_app.config['TECHNICAL_WRITER']:
-            print("Assigning role: Technical Writer")
-            self.role = Role.query.filter_by(name='Technical_writer').first()
-
-        elif self.email == current_app.config['SALES_MANAGER']:
-            self.role = Role.query.filter_by(name='Sales_Manager').first()
-
-        elif self.email == current_app.config['HR_MANAGER']:
-            self.role = Role.query.filter_by(name='HR_Manager').first()
-
-        elif self.email == current_app.config['ACCOUNTING_MANAGER']:
-            self.role = Role.query.filter_by(name='Accounting_Manager').first()
-
-        elif self.email in INSTRUCTORS:
-            self.role = Role.query.filter_by(name='Instructor').first()
-
         else:
             self.role = Role.query.filter_by(default=True).first()
 

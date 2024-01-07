@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Candidature</title>
+    <meta name="description" content="Formulaire d'inscription">
+    <meta name="keywords" content="graphisme, animation, design de produit, illustration, AR/VR design, UI/UX design, game design">
+    <meta name="author" content="artemis academy of design LLC">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/forms/publishers.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='medias/brand/favicons/apple-touch-icon.png')}}" sizes="180x180">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon-32x32.png')}}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons//favicon-16x16.png')}}" sizes="16x16" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon.png')}}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,400&family=Source+Code+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='stylesheets/forms/register.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Formulaire de Candidature</h1>
+
+        <div id="code-section" class="mb-4 bg-primary text-light border-4 border-info border-start">
+            <div class="py-1"></div>
+            <h6 class="text-light display-5">Veuillez suivre les instructions suivantes:</h6>
+            <ol class="d-flex flex-column gap-3">
+                <li>
+                    Veuillez copier et enregistrez ce code:
+                    <span id="association-code" class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">XXXXXXXX</span>
+                    <span onclick="copyCode()" class="copy-button" style="background:none; cursor:pointer;">
+                        <i class="bi bi-arrow-right text-light"></i><i class="bi bi-clipboard2" id="clipboard-icon" style="color:#fff;"></i>
+                    </span> 
+                    quelque part dans votre <strong>ordinateur</strong> ou <strong>téléphone.</strong>
+                </li>
+                <li>
+                    Remplissez ce <strong>formulaire</strong> au mieux de vos <strong>connaissances</strong>.
+                </li>
+                <li>
+                    Contactez nous à cette <a href="mailto:bytesprintrobotics@gmail.com" class="text-light">adresse</a> si vous avez des <strong>questions</strong>
+                    ou <strong>remarques</strong>.
+                </li>
+                <li>
+                    Passez une excellente journée 😊!
+                </li>
+            </ol>
+            <hr>
+            <p class="text-light">
+                <strong class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill"><i class="bi bi-exclamation-circle-fill"></i> 
+                Note:</strong></span> Ce code sera utilisé pour déterminer les avantages des personnes.</strong> Veuillez copier ce code quelque part, car vous ne le verrez plus.
+            </p>
+            <div class="py-3"></div>
+        </div>
+
+        <form action="{{ url_for('auth.register_ambassador_interest') }}" method="POST" id="form">
+
+            <p class="text-body-secondary">
+                Tous les champs marqués par un astérix rouge <span class="text-danger">(*)</span> sont <strong>obligatoires</strong>
+                vous devriez d'abord les <strong>remplir</strong> avant de soumettre votre <strong>candidature</strong>.         
+            </p>
+
+            <div class="form-group">
+                <label for="name">Nom<span class="text-danger">*</span></label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Entrez Votre Nom Complet" required>
+                <p class="error-message" id="name_error"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail :</label>
+                <input type="email" placeholder="exemple@gmail.com" id="email" name="email" class="form-control">
+                <p class="error-message" id="email_error"></p>
+            </div>
+
+
+            <div class="form-group my-3">
+                <label for="earning_range">Fourchette de Gains Attendus<span class="text-danger">*</span></label>
+                <select id="earning_range" name="earning_range" class="form-select" required>
+                    <option value="1">100$ - 750$ USD</option>
+                    <option value="2">1000$ - 2000$ USD</option>
+                    <option value="3">Plus de 3000$ USD</option>
+                </select>
+                <small class="form-text text-muted">Votre réponse nous aide à mieux comprendre vos attentes et à personnaliser l'expérience.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="in_college">Êtes-vous actuellement à l'université?</label>
+                <div class="d-flex gap-2 mt-2">
+                    <div class="form-check">
+                        <input type="radio" id="in_college_yes" name="in_college" class="form-check-input" value="yes">
+                        <label class="form-check-label" for="in_college_yes">Oui</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="in_college_no" name="in_college" class="form-check-input" value="no" checked>
+                        <label class="form-check-label" for="in_college_no">Non</label>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="college_name_input" class="form-group" style="display: none;">
+                <label for="college_name">Nom de votre établissement <span class="text-danger">*</span></label>
+                <input type="text" id="college_name" name="college_name" class="form-control">
+            </div>
+            
+
+            <div class="form-group my-3">
+                <label for="bring_people_count">Combien de personnes pensez-vous pouvoir impacter positivement<span class="text-danger">*</span>?</label>
+                <input type="number" id="bring_people_count" name="bring_people_count" class="form-control" required placeholder="100 personnes">
+                <small class="form-text text-muted">
+                    Ici nous vous demandons de nous dire combien de personnes pensez-vous pouvoir
+                    influencer, combien de personne pensez pouvoir inciter à s'inscrire à notre activité 8 personnes, 10 personnes, 1000 personnes.
+                    Vous pouvez nous donner une approximation.
+                </small>
+                <p class="error-message" id="bring_people_count_error"></p>
+            </div>
+
+            <div class="form-group my-2">
+                <label for="six_digit_code">Code de participation<sup class="text-danger">*</sup></label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="six_digit_code" placeholder="XXXXXX" minlength="6" maxlength="6" required>
+                </div>
+                <p class="error-message" id="six_digit_code_error"></p>
+                <small class="form-text text-muted">
+                    Entrez le code que vous aviez copié plus tôt.
+                </small>
+            </div>
+
+            <div class="py-2"></div>
+            
+            <div class="form-group my-3">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="privacyPolicyAgreement" name="privacy_policy_agreement" required>
+                    <label class="form-check-label" for="privacyPolicyAgreement">
+                        J'accepte la politique de confidentialité<span class="text-danger">*</span>.
+                    </label>
+                </div>
+                <p class="error-message" id="privacyPolicyAgreement_error"></p>
+                <small class="text-muted">
+                    En cochant cette case, vous confirmez votre engagement à publier nos supports de communication sur vos plateformes personnelles, à une fréquence préalablement définie. Votre implication est essentielle pour notre projet et permettra de partager notre mission avec un public plus large. Veuillez également renseigner votre numéro de téléphone ci-dessous afin que nous puissions vous contacter pour discuter des détails et des échéances.
+                </small>
+            </div>
+            
+
+            <label for="">Numéro de Téléphone<span class="text-danger">*</span></label>
+            <div class="form-group">
+                <input type="hidden" id="hiddenCountryCode" name="country_code" value="">
+                <div class="input-group">
+                    <input type="tel" class="form-control w-100" id="phoneCode" required>
+                </div>
+                <p class="error-message" id="phoneCode_error"></p>
+            </div>
+                        
+            <div class="py-4"></div>
+        
+
+            <button type="button" class="btn btn-primary border-0" onclick="submitAmbassadorData()" id="submitBtn">
+                <span id="spinner" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display:none;"></span>
+                Soumettre
+                <i class="bi bi-send" id="SendIcon"></i>  
+            </button>
+            
+
+        </form>
+        <div class="py-4"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
+    <script>
+        $(document).ready(function() {
+            const input = document.querySelector("#phoneCode");
+            const iti = window.intlTelInput(input, {
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+            });
+    
+            // Listen for input changes and update the hidden input field with the selected country code
+            input.addEventListener("countrychange", function() {
+                const countryCode = iti.getSelectedCountryData().iso2;
+                $("#hiddenCountryCode").val("+" + iti.getSelectedCountryData().dialCode);
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('association-code').textContent = generateAssociationCode();
+
+        // Function to generate a random 6-digit association code
+        function generateAssociationCode() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            return Array.from({ length: 6 }, () => characters[Math.floor(Math.random() * characters.length)]).join('');
+        }
+
+        function copyCode() {
+            const codeElement = document.getElementById('association-code');
+            const code = codeElement.textContent;
+
+            // Create a temporary input element to copy the text
+            const tempInput = document.createElement('input');
+            tempInput.value = code;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Change the clipboard icon to clipboard-check icon
+            const clipboardIcon = document.getElementById('clipboard-icon');
+            clipboardIcon.classList.remove('bi', 'bi-clipboard2');
+            clipboardIcon.classList.add('bi', 'bi-clipboard-check-fill');
+
+            // Show a modal alert with a close button on the top right
+            const alertModal = `
+                <div class="modal fade" id="copyAlertModal" tabindex="-1" role="dialog" aria-labelledby="copyAlertModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <i class="bi bi-check-circle-fill text-success mr-2"></i> Copié dans le presse-papiers!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Append the modal alert to the body
+            document.body.insertAdjacentHTML('beforeend', alertModal);
+
+            // Show the modal
+            $('#copyAlertModal').modal('show');
+
+            // Remove the modal after it's closed
+            $('#copyAlertModal').on('hidden.bs.modal', function () {
+                $(this).remove();
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collegeRadioYes = document.getElementById('in_college_yes');
+            const collegeRadioNo = document.getElementById('in_college_no');
+            const collegeNameInput = document.getElementById('college_name_input');
+
+            // Check the initial state
+            toggleCollegeNameInput(collegeRadioYes.checked);
+
+            // Add event listeners to the radio buttons
+            collegeRadioYes.addEventListener('change', function() {
+                // Toggle the display of the college name input based on the "yes" radio button selection
+                toggleCollegeNameInput(this.checked);
+            });
+
+            collegeRadioNo.addEventListener('change', function() {
+                // Ensure that the college name input is hidden when "no" is selected
+                toggleCollegeNameInput(!this.checked);
+            });
+        });
+
+        function toggleCollegeNameInput(isChecked) {
+            const collegeNameInput = document.getElementById('college_name_input');
+            collegeNameInput.style.display = isChecked ? 'block' : 'none';
+        }
+    </script>
+    <script>
+
+        function hideValidationError(field) {
+        const errorElement = document.getElementById(field.id + '_error');
+            if (errorElement) {
+                errorElement.textContent = '';
+            }
+        }
+
+        function displayValidationError(field, message) {
+            const errorElement = document.getElementById(field.id + '_error');
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+        }
+
+        document.getElementById('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            submitAmbassadorData();
+        });
+    
+        function validateForm() {
+            let isValid = true;
+
+            // Validate required fields
+            const requiredFields = document.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                const value = field.value.trim();
+                if (!value) {
+                    isValid = false;
+                    displayValidationError(field, 'Ce champ est obligatoire!');
+                } else {
+                    hideValidationError(field);
+                }
+            });
+            function isValidPositiveNumber(value) {
+                return /^[+]?\d+$/.test(value);
+            }
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+
+
+            // Validate email format
+            const emailField = document.getElementById('email');
+            const emailValue = emailField.value.trim();
+            if (emailValue && !isValidEmail(emailValue)) {
+                isValid = false;
+                displayValidationError(emailField, 'Veuillez entrer une adresse e-mail valide!');
+            } else {
+                hideValidationError(emailField);
+            }
+
+            // Validate positive number
+            const bringPeopleCountField = document.getElementById('bring_people_count');
+            const bringPeopleCountValue = bringPeopleCountField.value.trim();
+            if (bringPeopleCountValue && (!isValidPositiveNumber(bringPeopleCountValue) || bringPeopleCountValue <= 0)) {
+                isValid = false;
+                displayValidationError(bringPeopleCountField, 'Veuillez entrer un nombre positif!');
+            } else {
+                hideValidationError(bringPeopleCountField);
+            }
+
+            const sixDigitCodeField = document.getElementById('six_digit_code');
+            const sixDigitCodeValue = sixDigitCodeField.value.trim();
+            if (!sixDigitCodeValue || sixDigitCodeValue.length !== 6) {
+                isValid = false;
+                displayValidationError(sixDigitCodeField, 'Veuillez entrer un code à six chiffres valide!');
+            } else {
+                hideValidationError(sixDigitCodeField);
+            }
+
+
+            // Validate phone number
+            const phoneCodeField = document.getElementById('phoneCode');
+            const phoneCodeValue = phoneCodeField.value.trim();
+            if (!phoneCodeValue) {
+                isValid = false;
+                displayValidationError(phoneCodeField, 'Numéro de téléphone requis!');
+            } else {
+                hideValidationError(phoneCodeField);
+            }
+
+            // Validate privacy policy checkbox
+            const privacyPolicyCheckbox = document.getElementById('privacyPolicyAgreement');
+            if (!privacyPolicyCheckbox.checked) {
+                isValid = false;
+                displayValidationError(privacyPolicyCheckbox, 'Vous devez accepter la politique de confidentialité!');
+            } else {
+                hideValidationError(privacyPolicyCheckbox);
+            }
+
+            return isValid;
+        }
+
+    
+        function submitAmbassadorData() {
+            if (!validateForm()) {
+                return;
+            }
+    
+            const submitButton = $('#submitBtn');
+            const spinner = $('#spinner');
+    
+            spinner.show();
+            submitButton.prop('disabled', true);
+            $('#SendIcon').hide();
+    
+            const formData = {
+                full_name: $('#name').val(),
+                email: $('#email').val(),
+                esperance: $('#earning_range').val(),
+                institution: $('#college_name').val(),
+                impact: $('input[name="bring_people_count"]').val(),
+                phone_number: $('#hiddenCountryCode').val() + $('#phoneCode').val(),
+                six_digit_code: $('#six_digit_code').val()
+            };
+    
+            $.ajax({
+                type: 'POST',
+                url: 'https://bit-t2kb.onrender.com/become_an_ambassador/',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    spinner.hide();
+                    $('#SendIcon').show();
+    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Succès',
+                        text: 'Votre candidature a été envoyé! vous pouvez quitter la page',
+                    });
+    
+                    console.log(response);
+                },
+                error: function (error) {
+                    spinner.hide();
+                    $('#SendIcon').show();
+    
+                    // Display error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur',
+                        text: 'Quelque chose d\'imprévu s\'est passé, veuillez réessayer',
+                    });
+    
+                    console.error(error);
+                },
+                complete: function () {
+                    submitButton.prop('disabled', false);
+                }
+            });
+        }
+    </script>    
+</body>
+</html>

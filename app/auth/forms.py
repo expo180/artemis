@@ -109,3 +109,55 @@ class CourseWorkRegistrationForm(FlaskForm):
         "Dites brièvement pourquoi vous voulez participer à la formation que vous avez choisie",
         render_kw={'placeholder': 'J\'aimerais apprendre le graphisme pour aider les entreprises à améliorer leur communication'},
     )
+
+class AdminRegistrationForm(FlaskForm):
+    email = StringField(
+        ('Email'), 
+        validators = [
+            InputRequired(), 
+            Length(1, 64),
+            Email()
+        ]
+    )
+
+    password = PasswordField(
+         ('Password'),
+        validators = [
+            InputRequired(),
+            EqualTo(
+                'password2', 
+                message='Les mots de passe doivent correspondre!'
+            )
+        ]
+    )
+
+    password2 = PasswordField(
+         ('Confirm Password'),
+        validators = [
+            InputRequired()
+        ]
+    )
+    privacy_policy_agreement = BooleanField(
+        Markup("You have read and accepted our <a href=''>Terms and Conditions</a>."),
+        validators=[InputRequired()]
+    )
+    submit = SubmitField( ('Continue'))
+
+class AdminSignin(FlaskForm):
+    
+    email = StringField(
+        'Email',
+        validators = [
+            InputRequired(),
+            Length(1, 64),
+            Email()
+        ]
+    )
+    password = PasswordField(
+        'Mot de passe',
+        validators = [
+            InputRequired()
+        ]
+    )
+    remember_me = BooleanField( ('Remember me'))
+    submit = SubmitField( ('Sign in'))

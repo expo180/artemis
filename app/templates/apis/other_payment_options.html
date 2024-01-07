@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effectuer votre paiement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--custom css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/forms/payment.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="apple-touch-icon" href="{{url_for('static', filename='medias/brand/favicons/apple-touch-icon.png')}}" sizes="180x180">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon-32x32.png')}}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons//favicon-16x16.png')}}" sizes="16x16" type="image/png">
+    <link rel="icon" href="{{url_for('static', filename='medias/brand/favicons/favicon.png')}}" type="image/png">
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gajraj+One&family=Gloock&family=Inter:wght@100;200;300;900&family=Open+Sans:wght@300&family=Poppins:wght@400;500;900&family=Questrial&family=Roboto:ital,wght@0,900;1,700&family=Urbanist:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.1/dist/sweetalert2.all.min.js"></script>
+
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="mb-4">
+        <h3 class="display-2">Formulaire de Paiement</h3>
+    </div>
+    <div>
+        <div class="bg-primary text-light border border-4 border-info rounded-3 px-4 py-4">
+            <h3 class="display-4">Instructions</h3>
+            <p>
+                Bienvenue! Merci de suivre ces <strong>instructions</strong> pour compléter votre <strong>inscription</strong>. Nous acceptons les <strong>paiements</strong> via les services suivants :
+                <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">NITA</span> ,
+                <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">AMANA</span> ,
+                <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">ZEYNA</span> ,
+                <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">AL IZZA</span>.
+            </p>
+            <hr>        
+            <ol class="d-flex flex-column gap-3">
+                <li>Veuillez ne pas fermer cet onglet de votre <strong>navigateur</strong> lors de ce <strong>processus</strong>.</li>
+                <li>Allez à l'une des <strong>agences</strong> de votre <strong>choix</strong> la plus <strong>proche</strong> de chez vous.</li>
+                <li>
+                    Effectuer un envoi de <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">15.000 CFA</span>, 
+                    <strong>frais d'envoi non inclus</strong> sur le <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">+227 74411794</span> avec le nom suivant:
+                    <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">BADER SALISSOU SAÂDOU</span>, <span class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">Niamey</span> .
+                </li>
+                <li>
+                    Après avoir effectué <strong>l'envoi</strong>, remplissez le <strong>formulaire</strong> ci-dessous.
+                </li>
+            </ol>
+            <div class="py-3"></div>
+        </div>
+        <div class="py-3"></div>
+        <form class="border border-1 px-4 py-5 rounded-1" id="paymentForm" action="{{ url_for('api.submit_payment_form') }}" method="POST">
+            
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Nom complet de l'expéditeur <sup class="text-danger">*</sup></label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control" id="fullName" placeholder="Nom Complet de l'Expéditeur" required>
+                    <div class="invalid-feedback">Veuillez entrer votre nom complet.</div>
+                </div>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="confirmCheckbox" default="checked" required>
+                <label class="form-check-label" for="confirmCheckbox">
+                    La personne qui assiste à notre formation est celle qui effectue le paiement<sup class="text-danger">*</sup>.
+                </label>
+            </div>
+
+
+            <label for="">Numéro de Téléphone</label>
+            <input type="hidden" id="hiddenCountryCode" name="country_code" value="">
+            <div class="input-group">
+                <input type="tel" class="form-control w-100" id="phoneCode">
+            </div>
+
+            <div class="my-3 form-check">
+                <input type="checkbox" class="form-check-input" id="confirmPayCheckbox" required>
+                <label class="form-check-label" for="confirmPayCheckbox">
+                    Vous confirmez que vous avez déja effectué votre paiement avec l'un des <strong>services</strong> cités <strong>plus haut</strong><sup class="text-danger">*</sup>.
+                </label>
+            </div>
+
+            <button type="button" class="btn btn-primary my-3" id="submitBtn">Continuer <span id="loadingSpinner" class="spinner-border spinner-border-sm d-none"></span></button>
+
+        </form>
+        <div class="py-5"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"></script>
+
+<script>
+    $(document).ready(function() {
+        const input = document.querySelector("#phoneCode");
+        const iti = window.intlTelInput(input, {
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+        });
+
+        // Listen for input changes and update the hidden input field with the selected country code
+        input.addEventListener("countrychange", function() {
+            const countryCode = iti.getSelectedCountryData().iso2;
+            $("#hiddenCountryCode").val("+" + iti.getSelectedCountryData().dialCode);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("paymentForm");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const submitBtn = document.getElementById("submitBtn");
+
+        submitBtn.addEventListener("click", function() {
+            // Validate the form before triggering AJAX
+            if (form.checkValidity()) {
+                // Show loading spinner and disable the button
+                loadingSpinner.classList.remove("d-none");
+                submitBtn.disabled = true;
+                const formData = new FormData(form);
+                fetch("https://bit-t2kb.onrender.com/submit_payment_form", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading spinner and enable the button
+                    loadingSpinner.classList.add("d-none");
+                    submitBtn.disabled = false;
+
+                    // Show success message using SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Succès!',
+                        text: 'Nous allons confirmer votre paiement et vous recevrez un message de notre part sur le numéro dans 2-3 heures de temps.',
+                        showConfirmButton: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                           // Fermer le pop-up
+                           Swal.close();
+                        }
+                    });
+                })
+                .catch(error => {
+                    // Hide loading spinner and enable the button
+                    loadingSpinner.classList.add("d-none");
+                    submitBtn.disabled = false;
+
+                    // Show error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur!',
+                        text: 'Quelque chose s\'est mal passé. Veuillez réessayer.',
+                        showConfirmButton: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                           // Fermer le pop-up
+                           Swal.close();
+                        }
+                    });
+                })
+            } else {
+                // Trigger HTML5 form validation to show custom error messages
+                form.reportValidity();
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

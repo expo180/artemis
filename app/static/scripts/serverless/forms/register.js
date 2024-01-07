@@ -50,8 +50,8 @@ $(document).ready(function () {
         return motivation.length <= maxLength || motivation === '';
     }
 
-    // Event listener for input on each field
-    $('#first_name, #last_name, #email, #areas_of_interest, #payment_method, #motivation, #phoneCode').on('input', function () {
+   // Event listener for input on each field
+    $('#first_name, #last_name, #email, #areas_of_interest, #payment_method, #motivation, #phoneCode, #six_digit_code').on('input', function () {
         const isValid = validateField('#' + this.id, '#' + this.id + '_error', this.id === 'email' ? validateEmail : (this.id === 'motivation' ? validateMotivation : value => value.trim() !== ''));
 
         // Enable or disable the submit button based on overall form validity
@@ -59,7 +59,6 @@ $(document).ready(function () {
         $('button[type="submit"]').prop('disabled', !isFormValid);
     });
 
-    // Function to validate the entire form
     function validateForm() {
         const firstNameValid = validateField('#first_name', '#first_name_error', value => value.trim() !== '', 'Veuillez entrer votre prénom.');
         const lastNameValid = validateField('#last_name', '#last_name_error', value => value.trim() !== '', 'Veuillez entrer votre nom de famille.');
@@ -68,9 +67,11 @@ $(document).ready(function () {
         const paymentMethodValid = validateField('#payment_method', '#payment_method_error', validatePaymentMethod, 'Veuillez sélectionner un mode de paiement.');
         const motivationValid = validateField('#motivation', '#motivation_error', validateMotivation, 'La motivation ne doit pas dépasser 250 caractères.');
         const phoneNumberValid = validateField('#phoneCode', '#phoneCode_error', value => value.trim() !== '', 'Veuillez entrer votre numéro de téléphone.');
-
-        return firstNameValid && lastNameValid && emailValid && areasOfInterestValid && paymentMethodValid && motivationValid && phoneNumberValid;
+        const sixDigitCodeValid = validateField('#six_digit_code', '#six_digit_code_error', value => value.trim() !== '', 'Veuillez entrer le code à six chiffres.');
+    
+        return firstNameValid && lastNameValid && emailValid && areasOfInterestValid && paymentMethodValid && motivationValid && phoneNumberValid && sixDigitCodeValid;
     }
+    
 
     // Event listener for form submission
     $('form').submit(function (event) {
@@ -92,7 +93,8 @@ $(document).ready(function () {
                 motivation: $('#motivation').val(),
                 phone_number: $('#hiddenCountryCode').val() + $('#phoneCode').val(),
                 privacy_policy_agreement: $('#privacyPolicyAgreement').prop('checked'),
-                confirmEmail: $('#confirmEmail').prop('checked')
+                confirmEmail: $('#confirmEmail').prop('checked'),
+                six_digit_code: $('#six_digit_code').val()
             }
 
             // Disable submit button and show spinner
@@ -110,8 +112,8 @@ $(document).ready(function () {
                     submitButton.prop('disabled', false).html('Soumettre <i class="bi bi-send"></i>');
                     Swal.fire({
                         icon: 'success',
-                        title: 'Envoi réussi!',
-                        text: 'Vous pouvez maintenant continuer en versant les frais d\'inscription en utilisant votre carte de crédit, Paypal ou un autre moyen.',
+                        title: 'Envoyé',
+                        text: 'Cliquez sur "OK" pour continuer avec le paiement',
                         showCancelButton: true,
                         confirmButtonText: 'Continuer',
                         cancelButtonText: 'Retour',
@@ -127,7 +129,7 @@ $(document).ready(function () {
                             if (formData.payment_method === 'Paypal' || formData.payment_method === 'Credit Card') {
                                 redirectUrl = `https://ekki.onrender.com?email=${encodeURIComponent(userEmail)}`;
                             } else {
-                                redirectUrl = `http://127.0.0.1:5000/autre/paiement/?email=${encodeURIComponent(userEmail)}`;
+                                redirectUrl = `https://bit-t2kb.onrender.com/autre/paiement/?email=${encodeURIComponent(userEmail)}`;
                             }
                             window.location.href = redirectUrl;
                         }

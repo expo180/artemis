@@ -10,7 +10,7 @@ from flask_babel import Babel, gettext
 from flask_cors import CORS  # Import CORS
 
 login_manager = LoginManager()
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'auth.admin_login'
 bootstrap = Bootstrap()
 mail = Mail()
 babel = Babel()
@@ -18,14 +18,14 @@ db = SQLAlchemy()
 moment = Moment()
 migrate = Migrate()
 
-def create_app(production=True):
+def create_app(development=True):
     app = Flask(__name__)
     CORS(app)  # Enable CORS for all routes
 
-    app.config.from_object(config['production'])
+    app.config.from_object(config['development'])
     app.config['LANGUAGES'] = ['en', 'fr', 'ja', 'ar', 'it', 'es', 'pt', 'ru', 'pl']
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-    config['production'].init_app(app)
+    config['development'].init_app(app)
     bootstrap.init_app(app)
     mail.init_app(app)
     db.init_app(app)
